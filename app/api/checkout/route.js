@@ -1,5 +1,5 @@
 import Stripe from 'stripe'
-import { supabaseAdmin } from '../../../lib/supabaseAdmin'
+import { getSupabaseAdmin } from '../../../lib/supabaseAdmin'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
@@ -12,6 +12,7 @@ export async function POST(req) {
   try {
     const form = await req.json()
     const base = process.env.NEXT_PUBLIC_BASE_URL
+    const supabaseAdmin = getSupabaseAdmin()
 
     // 1) Order opslaan in Supabase (volledige gegevens, geen afkapping).
     const { data: order, error: insertError } = await supabaseAdmin

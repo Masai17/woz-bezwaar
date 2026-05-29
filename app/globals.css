@@ -250,6 +250,22 @@ footer { background: var(--cream-2); padding: 56px 0 36px; color: var(--ink-2); 
 
 .anchor { position: relative; top: -40px; }
 
+/* ---------- legal / prose pagina's ---------- */
+.legal-prose h2 { font-family: var(--serif); font-weight: 600; font-size: 22px; color: var(--ink); margin: 32px 0 10px; letter-spacing: -0.01em; }
+.legal-prose h3 { font-weight: 600; font-size: 16px; color: var(--ink); margin: 22px 0 6px; }
+.legal-prose p { margin: 0 0 14px; }
+.legal-prose ul { margin: 0 0 14px; padding-left: 20px; }
+.legal-prose li { margin: 4px 0; }
+.legal-prose a { color: var(--accent); }
+.legal-prose strong { color: var(--ink); }
+
+/* ---------- consent / akkoord in formulier ---------- */
+.consent { margin: 24px 0 8px; padding: 18px 20px; background: var(--cream); border: 1px solid var(--rule-2); }
+.consent-row { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; line-height: 1.55; color: var(--ink-2); cursor: pointer; }
+.consent-row input { margin-top: 3px; width: 17px; height: 17px; flex-shrink: 0; accent-color: var(--accent); }
+.consent-row a { color: var(--accent); }
+.ai-note { margin: 12px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--ink-3); }
+
 /* spinner for loading state */
 @keyframes spin { to { transform: rotate(360deg); } }
 .spinner { width: 16px; height: 16px; border: 2px solid rgba(245, 241, 234, .3); border-top-color: var(--cream); border-radius: 50%; animation: spin .8s linear infinite; }

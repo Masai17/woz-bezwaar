@@ -7,6 +7,7 @@ const initialForm = {
   wozWaarde: '', gewensteWaarde: '',
   argumenten: '',
   vergelijkObjecten: '',
+  akkoord: false,
 }
 
 export default function Home() {
@@ -17,7 +18,7 @@ export default function Home() {
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
 
   const isValid = form.naam && form.adres && form.postcode && form.gemeente &&
-    form.wozWaarde && form.gewensteWaarde && form.argumenten
+    form.wozWaarde && form.gewensteWaarde && form.argumenten && form.akkoord
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -274,9 +275,17 @@ export default function Home() {
             <div className="price-block">
               <div>
                 <div className="p-label">IV. — Totaal</div>
-                <div className="p-desc">Eenmalig honorarium voor het opstellen van uw bezwaarschrift, direct te downloaden als PDF.</div>
+                <div className="p-desc">Eenmalig honorarium voor het opstellen van uw bezwaarschrift, direct te downloaden als PDF. Totaalbedrag — geen bijkomende kosten, geen abonnement.</div>
               </div>
               <div className="p-amount">€29<small>,—</small></div>
+            </div>
+
+            <div className="consent">
+              <label className="consent-row">
+                <input type="checkbox" checked={form.akkoord} onChange={(e) => setForm(f => ({ ...f, akkoord: e.target.checked }))} />
+                <span>Ik ga akkoord met de <a href="/voorwaarden" target="_blank" rel="noopener">algemene voorwaarden</a> en de <a href="/privacy" target="_blank" rel="noopener">privacyverklaring</a>, en ik verzoek om directe levering. Ik begrijp dat ik daarmee afstand doe van mijn herroepingsrecht zodra mijn bezwaarschrift is opgesteld.</span>
+              </label>
+              <p className="ai-note">Het bezwaarschrift wordt opgesteld met behulp van AI (Claude van Anthropic) en is geen persoonlijk juridisch advies. Er is geen garantie dat het bezwaar wordt toegewezen — controleer het document zelf vóór verzending. Zie de <a href="/disclaimer" target="_blank" rel="noopener">disclaimer</a>.</p>
             </div>
 
             <div className="submit-row">
@@ -355,10 +364,9 @@ export default function Home() {
             <div>
               <h5>Juridisch</h5>
               <ul>
-                <li><a href="#">Algemene voorwaarden</a></li>
-                <li><a href="#">Privacyverklaring</a></li>
-                <li><a href="#">Verwerkersovereenkomst</a></li>
-                <li><a href="#">Disclaimer</a></li>
+                <li><a href="/voorwaarden">Algemene voorwaarden</a></li>
+                <li><a href="/privacy">Privacyverklaring</a></li>
+                <li><a href="/disclaimer">Disclaimer</a></li>
               </ul>
             </div>
             <div>

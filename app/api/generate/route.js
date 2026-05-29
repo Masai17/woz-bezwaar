@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import Anthropic from '@anthropic-ai/sdk'
-import { supabaseAdmin } from '../../../lib/supabaseAdmin'
+import { getSupabaseAdmin } from '../../../lib/supabaseAdmin'
 
 const MODEL = 'claude-sonnet-4-6'
 
@@ -24,6 +24,7 @@ export async function GET(request) {
   }
 
   // 2) Order ophalen (via order_id in metadata, fallback op stripe_session_id).
+  const supabaseAdmin = getSupabaseAdmin()
   const orderId = session.metadata?.order_id
   let query = supabaseAdmin.from('orders').select('*')
   query = orderId ? query.eq('id', orderId) : query.eq('stripe_session_id', sessionId)
