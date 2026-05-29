@@ -45,3 +45,7 @@ next-env.d.ts
 .idea/
 .vscode/
 *.swp
+
+# interne business-documenten (niet publiek op GitHub)
+GROEI-AGENTS.md
+GO-LIVE.md
