@@ -188,7 +188,7 @@ export default function Home() {
               <div className="eyebrow">Aanvraag — bezwaarschrift</div>
               <h2>Vul uw gegevens in.</h2>
             </div>
-            <p className="lede">Alle velden gemarkeerd met * zijn verplicht. U kunt uw bezwaar eerst gratis testen vóór u betaalt — er gaan geen gegevens naar de gemeente totdat ú het document heeft verzonden.</p>
+            <p className="lede">Alle velden gemarkeerd met * zijn verplicht. Er gaan geen gegevens naar de gemeente totdat ú het document heeft verzonden.</p>
           </div>
 
           <form className="form-shell" onSubmit={handleSubmit}>
