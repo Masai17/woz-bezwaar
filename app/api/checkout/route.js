@@ -29,7 +29,7 @@ export async function POST(req) {
             name: 'WOZ Bezwaarschrift',
             description: `Professioneel bezwaarschrift voor ${form.adres}, ${form.gemeente}`,
           },
-          unit_amount: 1900, // €19,00
+          unit_amount: 2900, // €29,00
         },
         quantity: 1,
       }],

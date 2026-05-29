@@ -64,7 +64,7 @@ export default function Home() {
           <div>
             <div className="eyebrow">Wet WOZ — art. 22 jo. art. 30 Awr</div>
             <h1>Te hoge WOZ&#8209;waarde?<br /><em>Maak bezwaar</em> — zonder advocaat,<br />binnen één uur.</h1>
-            <p className="sub">Wij stellen een juridisch onderbouwd bezwaarschrift voor u op, gebaseerd op uw situatie en de eisen van de Awb. U ondertekent en verzendt het zelf naar uw gemeente. Eenmalige kosten: <strong>€19</strong>. Geen abonnement, geen no&#8209;cure&#8209;no&#8209;pay-bureau dat uw vergoeding inpikt.</p>
+            <p className="sub">Wij stellen een juridisch onderbouwd bezwaarschrift voor u op, gebaseerd op uw situatie en de eisen van de Awb. U ondertekent en verzendt het zelf naar uw gemeente. Eenmalige kosten: <strong>€29</strong>. Geen abonnement, geen no&#8209;cure&#8209;no&#8209;pay-bureau dat uw vergoeding inpikt.</p>
             <div className="hero-ctas">
               <a href="#formulier" className="btn btn-primary">Stel mijn bezwaar op <span className="arrow">→</span></a>
               <a href="#voorbeeld" className="btn btn-ghost">Bekijk een voorbeeld</a>
@@ -73,7 +73,7 @@ export default function Home() {
             <div className="hero-meta">
               <div><div className="k">Bezwaartermijn</div><div className="v">6 weken</div></div>
               <div><div className="k">Opstellen duurt</div><div className="v">± 60 sec.</div></div>
-              <div><div className="k">Eenmalige kosten</div><div className="v">€19</div></div>
+              <div><div className="k">Eenmalige kosten</div><div className="v">€29</div></div>
             </div>
           </div>
 
@@ -276,7 +276,7 @@ export default function Home() {
                 <div className="p-label">IV. — Totaal</div>
                 <div className="p-desc">Eenmalig honorarium voor het opstellen van uw bezwaarschrift, direct te downloaden als PDF.</div>
               </div>
-              <div className="p-amount">€19<small>,—</small></div>
+              <div className="p-amount">€29<small>,—</small></div>
             </div>
 
             <div className="submit-row">
@@ -313,7 +313,7 @@ export default function Home() {
             </details>
             <details>
               <summary>Is dit niet hetzelfde als een no&#8209;cure&#8209;no&#8209;pay-bureau? <span className="plus">+</span></summary>
-              <p>Nee. Bij no&#8209;cure&#8209;no&#8209;pay innen die bureaus de proceskostenvergoeding van de gemeente — die kan oplopen tot enkele honderden euro's per zaak. Wij vragen eenmalig €19; ú houdt de eventuele proceskostenvergoeding zelf.</p>
+              <p>Nee. Bij no&#8209;cure&#8209;no&#8209;pay innen die bureaus de proceskostenvergoeding van de gemeente — die kan oplopen tot enkele honderden euro's per zaak. Wij vragen eenmalig €29; ú houdt de eventuele proceskostenvergoeding zelf.</p>
             </details>
             <details>
               <summary>Werkt dit voor elke gemeente in Nederland? <span className="plus">+</span></summary>

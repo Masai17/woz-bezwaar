@@ -2,7 +2,7 @@ import './globals.css'
 
 export const metadata = {
   title: 'Bezwaar.WOZ — Professioneel bezwaarschrift in één uur',
-  description: 'Te hoge WOZ-waarde? Wij stellen een juridisch onderbouwd bezwaarschrift voor u op. Eenmalig €19 — geen no-cure-no-pay-bureau dat uw vergoeding inpikt.',
+  description: 'Te hoge WOZ-waarde? Wij stellen een juridisch onderbouwd bezwaarschrift voor u op. Eenmalig €29 — geen no-cure-no-pay-bureau dat uw vergoeding inpikt.',
 }
 
 export default function RootLayout({ children }) {
