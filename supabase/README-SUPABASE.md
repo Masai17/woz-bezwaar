@@ -43,10 +43,15 @@ Eén tabel: **`orders`** (één rij per aanvraag). Categorieën:
 
 ---
 
-## 5. Setup (zodra je akkoord bent — nog niet doen)
-1. Maak een **nieuw** Supabase-project aan (regio EU, bv. Frankfurt — AVG).
-2. SQL Editor → draai `migrations/0001_init.sql`.
-3. (Optioneel, na review) draai `migrations/0002_retention.sql` voor auto-anonimisering.
+## 5. Setup
+> **Stand 2026-05-29:** uitgevoerd. Project **WOZ-bezwaar** (`cflhoywiideahhpsphap`, eu-west-1,
+> org *By MASAI*) heeft `0001` + `0002` + `0003` toegepast. Onderstaande stappen gelden voor een
+> eventueel nieuw/vers project.
+
+1. Maak een **nieuw** Supabase-project aan (regio EU — AVG).
+2. SQL Editor → draai `migrations/0001_init.sql` (orders-tabel + RLS).
+3. Draai `migrations/0002_retention.sql` (auto-anonimisering na 30 dagen, pg_cron).
+4. Draai `migrations/0003_optimize.sql` (hardening: anon/authenticated-rechten intrekken + force RLS, constraints op de financiële kern, partial indexen, en het dichten van het AVG-lek waarbij `gemeente`/`generation_error` eerder niet werden geanonimiseerd).
 4. Project Settings → API → noteer:
    - `Project URL`
    - `anon` key (niet strikt nodig voor server-only)
@@ -56,6 +61,7 @@ Eén tabel: **`orders`** (één rij per aanvraag). Categorieën:
    SUPABASE_URL=...
    SUPABASE_SERVICE_ROLE_KEY=...   # GEHEIM — nooit in client/Git
    ```
+   > Lokaal staan deze al in `.env.local`. **Op Vercel nog toe te voegen** (zie GO-LIVE 4.1).
 6. Voeg `verwerkersovereenkomst` toe aan de GO-LIVE-compliancelijst (Supabase als verwerker; teken hun DPA, EU-regio).
 
 ---

@@ -13,7 +13,9 @@ create table if not exists public.orders (
   updated_at          timestamptz not null default now(),
 
   -- ── Betaling (Stripe) ──────────────────────────────────────────────
-  stripe_session_id   text unique not null,
+  -- nullable: de order wordt aangemaakt vóór de Stripe-sessie bestaat,
+  -- en wordt daarna bijgewerkt met het session-id (unique blijft gelden).
+  stripe_session_id   text unique,
   payment_status      text not null default 'pending'
                         check (payment_status in ('pending','paid','failed','refunded')),
   amount_cents        integer,                 -- 1900 = €19,00
