@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import Anthropic from '@anthropic-ai/sdk'
 import { getSupabaseAdmin } from '../../../lib/supabaseAdmin'
+import { sendBezwaarEmail } from '../../../lib/mail'
 
 const MODEL = 'claude-sonnet-4-6'
 
@@ -77,6 +78,20 @@ Schrijf formeel, juridisch correct, met alle benodigde onderdelen inclusief adre
     })
     const bezwaar = message.content[0].text
 
+    // Aflevering per e-mail (inert tot mail-config is gezet; faalt nooit de request).
+    let deliveryMethod = 'web'
+    try {
+      const mail = await sendBezwaarEmail({
+        to: email, naam: order.naam, adres: order.adres, gemeente: order.gemeente, bezwaar,
+      })
+      if (mail.sent) deliveryMethod = 'email'
+      else if (!['not_configured', 'no_recipient'].includes(mail.reason)) {
+        console.error('E-mail niet verzonden:', mail.reason, mail.detail || '')
+      }
+    } catch (e) {
+      console.error('E-mail-fout:', e)
+    }
+
     await supabaseAdmin.from('orders').update({
       bezwaar_text: bezwaar,
       generation_status: 'done',
@@ -84,7 +99,7 @@ Schrijf formeel, juridisch correct, met alle benodigde onderdelen inclusief adre
       model: MODEL,
       generated_at: new Date().toISOString(),
       delivered_at: new Date().toISOString(),
-      delivery_method: 'web',
+      delivery_method: deliveryMethod,
     }).eq('id', order.id)
 
     return respond(bezwaar)
