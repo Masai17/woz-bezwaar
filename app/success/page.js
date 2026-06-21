@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { escapeHtml } from '../../lib/format'
 
 function SuccessContent() {
   const params = useSearchParams()
@@ -11,7 +12,10 @@ function SuccessContent() {
 
   useEffect(() => {
     if (!sessionId) { setStatus('error'); return }
-    fetch(`/api/generate?session_id=${sessionId}`)
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), 45000)
+
+    fetch(`/api/generate?session_id=${sessionId}`, { signal: controller.signal })
       .then(r => r.json())
       .then(data => {
         if (data.error) { setStatus('error'); return }
@@ -20,13 +24,14 @@ function SuccessContent() {
         setStatus('done')
       })
       .catch(() => setStatus('error'))
+      .finally(() => clearTimeout(timer))
   }, [sessionId])
 
   function handlePrint() {
     const win = window.open('', '_blank')
     win.document.write(`<!DOCTYPE html><html><head><title>WOZ Bezwaarschrift</title>
       <style>body{font-family:'Times New Roman',serif;font-size:12pt;line-height:1.7;max-width:700px;margin:40px auto;padding:0 20px;color:#000}@media print{body{margin:20px}}</style>
-      </head><body><pre style="white-space:pre-wrap;font-family:inherit">${bezwaar}</pre></body></html>`)
+      </head><body><pre style="white-space:pre-wrap;font-family:inherit">${escapeHtml(bezwaar)}</pre></body></html>`)
     win.document.close()
     win.focus()
     win.print()
@@ -34,6 +39,16 @@ function SuccessContent() {
 
   function handleCopy() {
     navigator.clipboard.writeText(bezwaar).then(() => alert('Bezwaarschrift gekopieerd!'))
+  }
+
+  function handleDownload() {
+    const blob = new Blob([bezwaar], { type: 'text/plain;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'bezwaarschrift-woz.txt'
+    a.click()
+    URL.revokeObjectURL(url)
   }
 
   if (status === 'loading') {
@@ -79,6 +94,7 @@ function SuccessContent() {
 
       <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
         <button className="btn btn-primary" onClick={handlePrint}>Afdrukken / Opslaan als PDF <span className="arrow">→</span></button>
+        <button className="btn btn-ghost" onClick={handleDownload}>Download als .txt</button>
         <button className="btn btn-ghost" onClick={handleCopy}>Kopieer tekst</button>
       </div>
 
@@ -88,6 +104,13 @@ function SuccessContent() {
           Verstuur dit bezwaarschrift per post of e-mail naar de gemeente <strong>{meta.gemeente}</strong>. U heeft <strong>zes weken</strong> na de dagtekening van uw WOZ-beschikking om bezwaar te maken (art. 6:7 Awb). Bewaar een kopie en vraag om een ontvangstbevestiging.
         </p>
       </div>
+
+      {sessionId && (
+        <p style={{ marginTop: 24, fontSize: 13, color: 'var(--ink-4)' }}>
+          Bewaar voor uw administratie: sessie-ID <code style={{ fontFamily: 'var(--mono)' }}>{sessionId}</code>.
+          Vragen over uw aanvraag? Mail naar <a href="mailto:support@wozbezwaar.nl">support@wozbezwaar.nl</a>.
+        </p>
+      )}
     </div>
   )
 }

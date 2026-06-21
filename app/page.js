@@ -1,13 +1,26 @@
 'use client'
 import { useState } from 'react'
+import { PRICE_CENTS } from '../lib/constants'
 
 const initialForm = {
   naam: '', adres: '', postcode: '', gemeente: '',
   belastingjaar: new Date().getFullYear().toString(),
+  beschikkingsnummer: '', dagtekening: '',
   wozWaarde: '', gewensteWaarde: '',
+  woonoppervlak: '', bouwjaar: '', woningtype: '', perceel: '',
   argumenten: '',
   vergelijkObjecten: '',
   akkoord: false,
+}
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Bezwaar.WOZ — WOZ-bezwaarschrift opstellen',
+  description: 'Juridisch onderbouwd bezwaarschrift tegen uw WOZ-beschikking. Direct klaar, eenmalig tarief.',
+  provider: { '@type': 'Organization', name: 'Bezwaar.WOZ' },
+  offers: { '@type': 'Offer', price: (PRICE_CENTS / 100).toFixed(2), priceCurrency: 'EUR' },
+  areaServed: { '@type': 'Country', name: 'Netherlands' },
 }
 
 export default function Home() {
@@ -43,6 +56,11 @@ export default function Home() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* ===== top bar ===== */}
       <header className="topbar">
         <div className="wrap topbar-inner">
@@ -63,9 +81,9 @@ export default function Home() {
       <section className="hero">
         <div className="wrap hero-grid">
           <div>
-            <div className="eyebrow">Wet WOZ — art. 22 jo. art. 30 Awr</div>
+            <div className="eyebrow">Wet WOZ — art. 30 jo. art. 22j&#8209;30 AWR</div>
             <h1>Te hoge WOZ&#8209;waarde?<br /><em>Maak bezwaar</em> — zonder advocaat,<br />binnen één uur.</h1>
-            <p className="sub">Wij stellen een juridisch onderbouwd bezwaarschrift voor u op, gebaseerd op uw situatie en de eisen van de Awb. U ondertekent en verzendt het zelf naar uw gemeente. Eenmalige kosten: <strong>€29</strong>. Geen abonnement, geen no&#8209;cure&#8209;no&#8209;pay-bureau dat uw vergoeding inpikt.</p>
+            <p className="sub">Wij stellen een juridisch onderbouwd bezwaarschrift voor u op, gebaseerd op uw situatie en de eisen van de Awb. U ondertekent en verzendt het zelf naar uw gemeente. Eenmalige kosten: <strong>€{PRICE_CENTS / 100}</strong>. Geen abonnement, geen no&#8209;cure&#8209;no&#8209;pay-bureau dat uw vergoeding inpikt.</p>
             <div className="hero-ctas">
               <a href="#formulier" className="btn btn-primary">Stel mijn bezwaar op <span className="arrow">→</span></a>
               <a href="#voorbeeld" className="btn btn-ghost">Bekijk een voorbeeld</a>
@@ -74,7 +92,7 @@ export default function Home() {
             <div className="hero-meta">
               <div><div className="k">Bezwaartermijn</div><div className="v">6 weken</div></div>
               <div><div className="k">Opstellen duurt</div><div className="v">± 60 sec.</div></div>
-              <div><div className="k">Eenmalige kosten</div><div className="v">€29</div></div>
+              <div><div className="k">Eenmalige kosten</div><div className="v">€{PRICE_CENTS / 100}</div></div>
             </div>
           </div>
 
@@ -85,7 +103,7 @@ export default function Home() {
             <p className="addr">Postbus 70012<br />3000 KP Rotterdam</p>
             <p><strong>Betreft:</strong> Bezwaarschrift inzake WOZ&#8209;beschikking 2025</p>
             <p>Geachte heer/mevrouw,</p>
-            <p>Hierbij maak ik, ondergetekende, op grond van artikel 22 van de Wet waardering onroerende zaken juncto artikel 30 van de Algemene wet inzake rijksbelastingen, tijdig bezwaar tegen de WOZ&#8209;beschikking d.d. 28 februari 2025 met betrekking tot de onroerende zaak gelegen aan de Hoogstraat 124 te 3011 PT Rotterdam.</p>
+            <p>Hierbij maak ik, ondergetekende, op grond van artikel 30 van de Wet WOZ juncto de artikelen 22j tot en met 30 van de Algemene wet inzake rijksbelastingen, bezwaar tegen de bij beschikking (artikel 22 Wet WOZ) vastgestelde waarde d.d. 28 februari 2025 met betrekking tot de onroerende zaak gelegen aan de Hoogstraat 124 te 3011 PT Rotterdam.</p>
             <p>De vastgestelde waarde van € 485.000 acht ik niet in overeenstemming met de werkelijke waarde in het economisch verkeer per de waardepeildatum 1 januari 2024 …</p>
           </aside>
         </div>
@@ -155,7 +173,7 @@ export default function Home() {
               <p>Alle onderdelen die de gemeente verplicht is in behandeling te nemen, in de volgorde zoals de bezwaarcommissie ze verwacht:</p>
               <ul>
                 <li><span className="check">✓</span><span>Aanhef en correcte adressering aan B&amp;W</span></li>
-                <li><span className="check">✓</span><span>Verwijzing naar artikel 22 Wet WOZ en artikel 6:4 Awb</span></li>
+                <li><span className="check">✓</span><span>Correcte grondslag: art. 30 Wet WOZ jo. art. 22j&#8209;30 AWR</span></li>
                 <li><span className="check">✓</span><span>Onderbouwing van de werkelijke waarde</span></li>
                 <li><span className="check">✓</span><span>Uw argumenten, juridisch geformuleerd</span></li>
                 <li><span className="check">✓</span><span>Vergelijkingsobjecten met onderbouwing</span></li>
@@ -168,7 +186,7 @@ export default function Home() {
               <div className="doc-meta"><span>Casus 2025-A · geanonimiseerd</span><span>Pagina 1 / 2</span></div>
               <p className="title">Bezwaarschrift inzake WOZ&#8209;beschikking belastingjaar 2025</p>
               <p>Geachte heer/mevrouw,</p>
-              <p>Hierbij maak ik, ondergetekende, op grond van artikel 22 van de Wet waardering onroerende zaken juncto artikel 6:4 van de Algemene wet bestuursrecht, tijdig bezwaar tegen de WOZ&#8209;beschikking d.d. 28 februari 2025, met betrekking tot de onroerende zaak gelegen aan [adres], voor het belastingjaar 2025.</p>
+              <p>Hierbij maak ik, ondergetekende, op grond van artikel 30 van de Wet WOZ juncto de artikelen 22j tot en met 30 van de Algemene wet inzake rijksbelastingen, bezwaar tegen de bij beschikking (artikel 22 Wet WOZ) vastgestelde waarde d.d. 28 februari 2025, met betrekking tot de onroerende zaak gelegen aan [adres], voor het belastingjaar 2025.</p>
               <p>De gemeente heeft de waarde per de waardepeildatum 1 januari 2024 vastgesteld op € 485.000. Ik ben van mening dat deze waarde aanzienlijk te hoog is en niet in overeenstemming met de waarde in het economisch verkeer, zoals bedoeld in artikel 17, tweede lid, Wet WOZ. Naar mijn oordeel bedraagt de werkelijke waarde ten hoogste € 420.000, en wel om de hierna te noemen redenen.</p>
               <p><strong>1. Onderhoudstoestand.</strong> De woning verkeert in een gedateerde staat. De keuken (bouwjaar circa 1998) en badkamer (circa 2001) zijn niet vernieuwd; de cv-installatie dateert uit 2009. Een ervaren koper zal hier rekening mee houden bij een koopprijs, hetgeen door de gemeente niet kenbaar in de waardering is meegewogen…</p>
               <div className="gate">
@@ -209,20 +227,20 @@ export default function Home() {
               </div>
               <div className="field-grid">
                 <div className="field full">
-                  <label>Volledige naam *</label>
-                  <input required placeholder="J. de Vries" value={form.naam} onChange={set('naam')} />
+                  <label htmlFor="naam">Volledige naam *</label>
+                  <input id="naam" required placeholder="J. de Vries" value={form.naam} onChange={set('naam')} />
                 </div>
                 <div className="field full">
-                  <label>Adres van de woning *</label>
-                  <input required placeholder="Kerkstraat 12" value={form.adres} onChange={set('adres')} />
+                  <label htmlFor="adres">Adres van de woning *</label>
+                  <input id="adres" required placeholder="Kerkstraat 12" value={form.adres} onChange={set('adres')} />
                 </div>
                 <div className="field">
-                  <label>Postcode *</label>
-                  <input required placeholder="3011 PT" value={form.postcode} onChange={set('postcode')} />
+                  <label htmlFor="postcode">Postcode *</label>
+                  <input id="postcode" required placeholder="3011 PT" value={form.postcode} onChange={set('postcode')} />
                 </div>
                 <div className="field">
-                  <label>Gemeente *</label>
-                  <input required placeholder="Rotterdam" value={form.gemeente} onChange={set('gemeente')} />
+                  <label htmlFor="gemeente">Gemeente *</label>
+                  <input id="gemeente" required placeholder="Rotterdam" value={form.gemeente} onChange={set('gemeente')} />
                 </div>
               </div>
             </div>
@@ -231,22 +249,32 @@ export default function Home() {
             <div className="formsection">
               <div>
                 <div className="roman">II.</div>
-                <div className="sec-title">Waardegegevens</div>
+                <div className="sec-title">Gegevens van de beschikking</div>
                 <div className="sec-hint">Van uw WOZ-beschikking en uw eigen schatting.</div>
               </div>
               <div className="field-grid">
                 <div className="field">
-                  <label>Belastingjaar *</label>
-                  <input required placeholder="2025" value={form.belastingjaar} onChange={set('belastingjaar')} />
+                  <label htmlFor="belastingjaar">Belastingjaar *</label>
+                  <input id="belastingjaar" required placeholder="2025" value={form.belastingjaar} onChange={set('belastingjaar')} />
                 </div>
                 <div className="field">
-                  <label>WOZ-waarde gemeente (€) *</label>
-                  <input type="number" required placeholder="485000" value={form.wozWaarde} onChange={set('wozWaarde')} />
+                  <label htmlFor="woz-waarde">WOZ-waarde gemeente (€) *</label>
+                  <input id="woz-waarde" type="number" required placeholder="485000" value={form.wozWaarde} onChange={set('wozWaarde')} />
+                </div>
+                <div className="field">
+                  <label htmlFor="beschikkingsnummer">Beschikkingsnummer</label>
+                  <input id="beschikkingsnummer" placeholder="bijv. 1234567890" value={form.beschikkingsnummer} onChange={set('beschikkingsnummer')} aria-describedby="beschikkingsnummer-hint" />
+                  <div id="beschikkingsnummer-hint" className="hint">Staat op uw WOZ-beschikking. Niet bij de hand? Laat leeg — wij markeren het als in te vullen.</div>
+                </div>
+                <div className="field">
+                  <label htmlFor="dagtekening">Dagtekening beschikking</label>
+                  <input id="dagtekening" placeholder="28 februari 2025" value={form.dagtekening} onChange={set('dagtekening')} aria-describedby="dagtekening-hint" />
+                  <div id="dagtekening-hint" className="hint">De datum rechtsboven op de beschikking — bepaalt uw bezwaartermijn van 6 weken.</div>
                 </div>
                 <div className="field full">
-                  <label>Uw schatting werkelijke waarde (€) *</label>
-                  <input type="number" required placeholder="420000" value={form.gewensteWaarde} onChange={set('gewensteWaarde')} />
-                  <div className="hint">Waarvoor zou de woning naar uw inzicht realistisch verkocht zijn op de waardepeildatum?</div>
+                  <label htmlFor="gewenste-waarde">Uw schatting werkelijke waarde (€) *</label>
+                  <input id="gewenste-waarde" type="number" required placeholder="420000" value={form.gewensteWaarde} onChange={set('gewensteWaarde')} aria-describedby="gewenste-waarde-hint" />
+                  <div id="gewenste-waarde-hint" className="hint">Waarvoor zou de woning naar uw inzicht realistisch verkocht zijn op de waardepeildatum?</div>
                 </div>
               </div>
             </div>
@@ -255,34 +283,61 @@ export default function Home() {
             <div className="formsection">
               <div>
                 <div className="roman">III.</div>
+                <div className="sec-title">Kenmerken van uw woning</div>
+                <div className="sec-hint">Maakt de vergelijking met andere woningen narekenbaar (prijs per m²). Optioneel, maar versterkt het bezwaar.</div>
+              </div>
+              <div className="field-grid">
+                <div className="field">
+                  <label htmlFor="woonoppervlak">Woonoppervlakte (m²)</label>
+                  <input id="woonoppervlak" type="number" placeholder="110" value={form.woonoppervlak} onChange={set('woonoppervlak')} />
+                </div>
+                <div className="field">
+                  <label htmlFor="perceel">Perceeloppervlakte (m²)</label>
+                  <input id="perceel" type="number" placeholder="140" value={form.perceel} onChange={set('perceel')} />
+                </div>
+                <div className="field">
+                  <label htmlFor="bouwjaar">Bouwjaar</label>
+                  <input id="bouwjaar" placeholder="1975" value={form.bouwjaar} onChange={set('bouwjaar')} />
+                </div>
+                <div className="field">
+                  <label htmlFor="woningtype">Woningtype</label>
+                  <input id="woningtype" placeholder="tussenwoning, hoekwoning, appartement…" value={form.woningtype} onChange={set('woningtype')} />
+                </div>
+              </div>
+            </div>
+
+            {/* IV */}
+            <div className="formsection">
+              <div>
+                <div className="roman">IV.</div>
                 <div className="sec-title">Argumentatie</div>
                 <div className="sec-hint">De kern van uw bezwaar. Wees concreet.</div>
               </div>
               <div className="field-grid">
                 <div className="field full">
-                  <label>Waarom is de WOZ-waarde te hoog? *</label>
-                  <textarea required placeholder="Bijv: verouderde keuken (bouwjaar 1998), gedateerde badkamer, geen isolatie spouwmuren, ligging aan drukke doorgaande weg, geen eigen parkeerplaats, kleine tuin op het noorden…" value={form.argumenten} onChange={set('argumenten')} />
+                  <label htmlFor="argumenten">Waarom is de WOZ-waarde te hoog? *</label>
+                  <textarea id="argumenten" required placeholder="Bijv: verouderde keuken (bouwjaar 1998), gedateerde badkamer, geen isolatie spouwmuren, ligging aan drukke doorgaande weg, geen eigen parkeerplaats, kleine tuin op het noorden…" value={form.argumenten} onChange={set('argumenten')} />
                 </div>
                 <div className="field full">
-                  <label>Vergelijkbare woningen (optioneel)</label>
-                  <textarea placeholder={"Kerkstraat 8 — vergelijkbare hoekwoning, verkocht voor € 410.000 in januari 2025.\nKerkstraat 22 — verkocht € 425.000 in november 2024."} value={form.vergelijkObjecten} onChange={set('vergelijkObjecten')} />
-                  <div className="hint">Aantoonbaar lagere verkoopprijzen van vergelijkbare woningen versterken uw bezwaar aanzienlijk.</div>
+                  <label htmlFor="vergelijk-objecten">Vergelijkbare woningen (optioneel)</label>
+                  <textarea id="vergelijk-objecten" placeholder={"Kerkstraat 8 — vergelijkbare hoekwoning, verkocht voor € 410.000 in januari 2025.\nKerkstraat 22 — verkocht € 425.000 in november 2024."} value={form.vergelijkObjecten} onChange={set('vergelijkObjecten')} aria-describedby="vergelijk-hint" />
+                  <div id="vergelijk-hint" className="hint">Vermeld per woning zo mogelijk: adres, woonoppervlakte (m²), bouwjaar, type, verkoopdatum en verkoopprijs — dan kan de prijs per m² worden berekend, wat uw bezwaar aanzienlijk versterkt.</div>
                 </div>
               </div>
             </div>
 
-            {/* IV — prijs */}
+            {/* V — prijs */}
             <div className="price-block">
               <div>
-                <div className="p-label">IV. — Totaal</div>
+                <div className="p-label">V. — Totaal</div>
                 <div className="p-desc">Eenmalig honorarium voor het opstellen van uw bezwaarschrift, direct te downloaden als PDF. Totaalbedrag — geen bijkomende kosten, geen abonnement.</div>
               </div>
-              <div className="p-amount">€29<small>,—</small></div>
+              <div className="p-amount">€{PRICE_CENTS / 100}<small>,—</small></div>
             </div>
 
             <div className="consent">
               <label className="consent-row">
-                <input type="checkbox" checked={form.akkoord} onChange={(e) => setForm(f => ({ ...f, akkoord: e.target.checked }))} />
+                <input id="akkoord" type="checkbox" checked={form.akkoord} onChange={(e) => setForm(f => ({ ...f, akkoord: e.target.checked }))} />
                 <span>Ik ga akkoord met de <a href="/voorwaarden" target="_blank" rel="noopener">algemene voorwaarden</a> en de <a href="/privacy" target="_blank" rel="noopener">privacyverklaring</a>, en ik verzoek om directe levering. Ik begrijp dat ik daarmee afstand doe van mijn herroepingsrecht zodra mijn bezwaarschrift is opgesteld.</span>
               </label>
               <p className="ai-note">Het bezwaarschrift wordt opgesteld met behulp van AI (Claude van Anthropic) en is geen persoonlijk juridisch advies. Er is geen garantie dat het bezwaar wordt toegewezen — controleer het document zelf vóór verzending. Zie de <a href="/disclaimer" target="_blank" rel="noopener">disclaimer</a>.</p>
@@ -322,7 +377,7 @@ export default function Home() {
             </details>
             <details>
               <summary>Is dit niet hetzelfde als een no&#8209;cure&#8209;no&#8209;pay-bureau? <span className="plus">+</span></summary>
-              <p>Nee. Bij no&#8209;cure&#8209;no&#8209;pay innen die bureaus de proceskostenvergoeding van de gemeente — die kan oplopen tot enkele honderden euro's per zaak. Wij vragen eenmalig €29; ú houdt de eventuele proceskostenvergoeding zelf.</p>
+              <p>Nee. Bij no&#8209;cure&#8209;no&#8209;pay innen die bureaus de proceskostenvergoeding van de gemeente — die kan oplopen tot enkele honderden euro's per zaak. Wij vragen eenmalig €{PRICE_CENTS / 100}; ú houdt de eventuele proceskostenvergoeding zelf.</p>
             </details>
             <details>
               <summary>Werkt dit voor elke gemeente in Nederland? <span className="plus">+</span></summary>

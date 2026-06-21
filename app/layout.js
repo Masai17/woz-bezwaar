@@ -1,8 +1,19 @@
 import './globals.css'
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
+
 export const metadata = {
+  metadataBase: new URL(BASE_URL),
   title: 'Bezwaar.WOZ — Professioneel bezwaarschrift in één uur',
   description: 'Te hoge WOZ-waarde? Wij stellen een juridisch onderbouwd bezwaarschrift voor u op. Eenmalig €29 — geen no-cure-no-pay-bureau dat uw vergoeding inpikt.',
+  openGraph: {
+    title: 'Bezwaar.WOZ — Professioneel WOZ-bezwaarschrift',
+    description: 'Te hoge WOZ-waarde? Juridisch onderbouwd bezwaarschrift voor €29. Direct klaar, geen abonnement.',
+    url: BASE_URL,
+    siteName: 'Bezwaar.WOZ',
+    locale: 'nl_NL',
+    type: 'website',
+  },
 }
 
 export default function RootLayout({ children }) {

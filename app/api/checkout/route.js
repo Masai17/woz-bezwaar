@@ -1,5 +1,6 @@
 import Stripe from 'stripe'
 import { getSupabaseAdmin } from '../../../lib/supabaseAdmin'
+import { PRICE_CENTS } from '../../../lib/constants'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
@@ -19,14 +20,20 @@ export async function POST(req) {
       .from('orders')
       .insert({
         payment_status: 'pending',
-        amount_cents: 2900,
+        amount_cents: PRICE_CENTS,
         naam: form.naam || null,
         adres: form.adres || null,
         postcode: form.postcode || null,
         gemeente: form.gemeente || null,
         belastingjaar: form.belastingjaar || null,
+        beschikkingsnummer: form.beschikkingsnummer || null,
+        dagtekening: form.dagtekening || null,
         woz_waarde_euro: toInt(form.wozWaarde),
         gewenste_waarde_euro: toInt(form.gewensteWaarde),
+        woonoppervlak_m2: toInt(form.woonoppervlak),
+        perceel_m2: toInt(form.perceel),
+        bouwjaar: form.bouwjaar || null,
+        woningtype: form.woningtype || null,
         argumenten: form.argumenten || null,
         vergelijk_objecten: form.vergelijkObjecten || null,
       })
@@ -48,7 +55,7 @@ export async function POST(req) {
             name: 'WOZ Bezwaarschrift',
             description: `Professioneel bezwaarschrift voor ${form.adres}, ${form.gemeente}`,
           },
-          unit_amount: 2900, // €29,00
+          unit_amount: PRICE_CENTS,
         },
         quantity: 1,
       }],

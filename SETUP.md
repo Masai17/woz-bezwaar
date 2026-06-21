@@ -29,11 +29,10 @@
 Ga naar je project → Settings → Environment Variables en voeg toe:
 
 ```
-ANTHROPIC_API_KEY          = sk-ant-...
-STRIPE_SECRET_KEY          = sk_live_...
-STRIPE_WEBHOOK_SECRET      = whsec_...
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = pk_live_...
-NEXT_PUBLIC_BASE_URL       = https://jouwdomein.nl
+ANTHROPIC_API_KEY     = sk-ant-...
+STRIPE_SECRET_KEY     = sk_live_...
+STRIPE_WEBHOOK_SECRET = whsec_...
+NEXT_PUBLIC_BASE_URL  = https://jouwdomein.nl
 ```
 
 ## Stap 5 — Domein koppelen
@@ -55,9 +54,9 @@ NEXT_PUBLIC_BASE_URL       = https://jouwdomein.nl
 - Stripe: 1,5% + €0,25 per transactie
 
 ## Bij 100 betalende klanten per maand
-- Omzet: 100 × €19 = €1.900
+- Omzet: 100 × €29 = €2.900
 - Kosten: ~€80 (Stripe fees + API)
-- Netto: ~€1.820/maand
+- Netto: ~€2.820/maand
 
 ---
 
